@@ -6,6 +6,7 @@ interrupt-driven device driver for the Raspberry Pi 1 Model b+.
 
 #include "uart.h" // UART driver code file
 #include "gpio.h"
+#include "i2c.h"
 #include "interrupts.h"
 #include <stdio.h>
 
@@ -14,6 +15,8 @@ extern void _unlock(void);
 void main(){
 	uart_init();				// initialize UARTs
 	uart_enable_interrupt();
+
+	i2c_init();
 	
 	//spi_init();
 	//spi_enable_interrupt();

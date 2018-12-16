@@ -56,21 +56,39 @@
 #define SPI_CSPOL2     (1 << 23)
 #define SPI_BUFSIZE    16
 
-#define I2C_BASE       0x20205000
-#define I2C_C          0x00
-#define I2C_S          0x04
-#define I2C_DLEN       0x08
-#define I2C_A          0x0C
-#define I2C_FIFO       0x10
-#define I2C_DIV        0x14
-#define I2C_READ       (1 << 0)
-#define I2C_ST         (1 << 7)
-#define I2C_INTD       (1 << 8)
-#define I2C_INTT       (1 << 9)
-#define I2C_INTR       (1 << 10)
-#define I2C_I2CEN      (1 << 15)
-#define I2C_TA         (1 << 0)
-#define I2C_DONE       (1 << 1)
-#define I2C_TXD        (1 << 4)
-#define I2C_RXD        (1 << 5)
+//#define I2C_DISPLAY_ADDRESS 0x3f
+#define I2C_BASE       0x20205000 // BSC0
+//#define I2C_BASE       0x20804000 // BSC1
+//#define I2C_BASE       0x20805000 // BSC2 ONLY HDMI
+#define I2C_C            0x00    //0x00
+#define I2C_S            0x01   //0x04
+#define I2C_DLEN         0x02   //0x08
+#define I2C_A            0x03   //0xC
+#define I2C_FIFO         0x04   //0x10
+//#define I2C_DIV        0x14
+//#define I2C_DEL        0x18
+//#define I2C_CLKT       0x1C
+// C register
+#define I2C_I2CEN     (1 << 15)
+#define I2C_INTR      (1 << 10)
+#define I2C_INTT      (1 << 9)
+#define I2C_INTD      (1 << 8)
+#define I2C_ST        (1 << 7)
+#define I2C_CLEAR     (1 << 4)
+#define I2C_READ      1
+#define I2C_START_READ      I2C_I2CEN|I2C_ST|I2C_CLEAR|I2C_READ
+#define I2C_START_WRITE     I2C_I2CEN|I2C_ST
+// S register
+#define I2C_CLKT      (1 << 9)
+#define I2C_ERR       (1 << 8)
+#define I2C_RXF       (1 << 7)
+#define I2C_TXE       (1 << 6)
+#define I2C_RXD       (1 << 5)
+#define I2C_TXD       (1 << 4)
+#define I2C_RXR       (1 << 3)
+#define I2C_TXW       (1 << 2)
+#define I2C_DONE      (1 << 1)
+#define I2C_TA        1
+#define I2C_CLEAR_STATUS    I2C_CLKT|I2C_ERR|I2C_DONE
+
 #endif
