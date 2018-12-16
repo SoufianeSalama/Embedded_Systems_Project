@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "rpi-interrupts.h"
+#include "interrupts.h"
 
 /** @brief The BCM2835 Interupt controller peripheral at it's base address */
 static rpi_irq_controller_t* rpiIRQController =
@@ -98,6 +98,10 @@ void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
         LAB ASSIGNEMENT: CHECK FOR UART PENDING BIT AND CALL
                          uart_handler WHEN PENDING BIT IS SET 
     *************************************************************/
+
+    if (RPI_GetIrqController()->IRQ_pending_2 & IRQ_2_ARM_UART_IRQ) {
+		uart_handler();
+	}
 }
 
 
@@ -128,5 +132,8 @@ void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
 */
 void __attribute__((interrupt("FIQ"))) fast_interrupt_vector(void)
 {
-
+    while( 1 )
+    {
+        /* Do Nothing! */
+    }
 }

@@ -31,7 +31,8 @@
 extern int __bss_start__;
 extern int __bss_end__;
 
-extern void kernel_main( unsigned int r0, unsigned int r1, unsigned int atags );
+//extern void kernel_main( unsigned int r0, unsigned int r1, unsigned int atags );
+extern void main();
 
 void _cstartup( unsigned int r0, unsigned int r1, unsigned int r2 )
 {
@@ -51,11 +52,13 @@ void _cstartup( unsigned int r0, unsigned int r1, unsigned int r2 )
         *bss++ = 0;
 
     /* We should never return from main ... */
-    kernel_main( r0, r1, r2 );
+    //kernel_main( r0, r1, r2 );
+    main();
 
     /* ... but if we do, safely trap here */
     while(1)
     {
+        main();
         /* EMPTY! */
     }
 }

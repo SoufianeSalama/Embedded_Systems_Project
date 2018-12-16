@@ -1,31 +1,5 @@
-//  Part of the Raspberry-Pi Bare Metal Tutorials
-//  Copyright (c) 2013, Brian Sidebotham
-//  All rights reserved.
-//
-//  Redistribution and use in source and binary forms, with or without
-//  modification, are permitted provided that the following conditions are met:
-//
-//  1. Redistributions of source code must retain the above copyright notice,
-//      this list of conditions and the following disclaimer.
-//
-//  2. Redistributions in binary form must reproduce the above copyright notice,
-//      this list of conditions and the following disclaimer in the
-//      documentation and/or other materials provided with the distribution.
-//
-//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-//  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-//  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-//  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-//  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-//  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-//  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-//  POSSIBILITY OF SUCH DAMAGE.
-
 .text
-.code 32
+
 .section ".text.startup"
 .global _start, _lock, _unlock
 
@@ -54,7 +28,24 @@ _start:
     // **********************************************************************
     //  LAB ASSIGNMENT: IMPLEMENT VECTOR TABLE HERE
     // **********************************************************************
+	ldr pc, _reset_h
+	ldr pc, _undefined_instruction_vector_h
+	ldr pc, _software_interrupt_vector_h
+	ldr pc, _prefetch_abort_vector_h
+	ldr pc, _data_abort_vector_h
+	ldr pc, _unused_handler_h
+	ldr pc, _interrupt_vector_h
+	ldr pc, _fast_interrupt_vector_h
 
+_reset_h:                           .word   _reset_
+_undefined_instruction_vector_h:    .word   _reset_ //undefined_instruction_vector
+_software_interrupt_vector_h:       .word   software_interrupt_vector
+_prefetch_abort_vector_h:           .word   prefetch_abort_vector
+_data_abort_vector_h:               .word   data_abort_vector
+_unused_handler_h:                  .word   _reset_
+_interrupt_vector_h:                .word   interrupt_vector
+_fast_interrupt_vector_h:           .word   fast_interrupt_vector
+	
 _reset_:
 	// We enter execution in supervisor mode. For more information on
     // processor modes see ARM Section A2.2 (Processor Modes)
@@ -62,7 +53,13 @@ _reset_:
     // **********************************************************************
     //  LAB ASSIGNMENT: IMPLEMENT CODE TO PLACE VECTOR TABLE AT ADDRESS 0x00
     //***********************************************************************
-
+	mov     r0, #0x8000
+	mov     r1, #0x0000
+	ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
+	stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
+	ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
+	stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
+	
     // We are going to use interrupt mode, so setup the interrupt mode
     // stack pointer which differs to the application stack pointer:
     mov r0, #(CPSR_MODE_IRQ | CPSR_IRQ_INHIBIT | CPSR_FIQ_INHIBIT )
@@ -104,59 +101,3 @@ _unlock: 							// mask in IRQ interrupts
 	BIC r0, r0, #0x80 				// clr I bit means MASK in IRQ interrupts
 	MSR cpsr, r0
 	mov pc, lr
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-reset_handler:
-	LDR sp, =svc_stack_top 	// set SVC mode stack
-	BL copy_vectors 		// copy vector table to address 0
-	MSR cpsr, #0x12 		// to IRQ mode
-	LDR sp, =irq_stack_top 	// set IRQ mode stack
-	MSR cpsr, #0x13 		// go back to SVC mode with IRQ on
-	BL main 				// call main() in C
-	B . 					// loop if main ever return
-
-irq_handler:
-	sub lr, lr, #4
-	stmfd sp!, {r0-r12, lr} 	// stack r0-r12 and lr
-	bl IRQ_handler 				// call IRQ_hanler() in C
-	ldmfd sp!, {r0-r12, pc}^ 	// return
-
-vectors_start:
-	LDR PC, reset_handler_addr
-	LDR PC, undef_handler_addr
-	LDR PC, swi_handler_addr
-	LDR PC, prefetch_abort_handler_addr
-	LDR PC, data_abort_handler_addr
-	B .
-	LDR PC, irq_handler_addr
-	LDR PC, fiq_handler_addr
-	reset_handler_addr: 			.word reset_handler
-	undef_handler_addr: 			.word undef_handler
-	swi_handler_addr: 				.word swi_handler
-	prefetch_abort_handler_addr: 	.word prefetch_abort_handler
-	data_abort_handler_addr: 		.word data_abort_handler
-	irq_handler_addr: 				.word irq_handler
-	fiq_handler_addr: 				.word fiq_handler
-vectors_end:
-*/
