@@ -14,14 +14,9 @@ typedef volatile struct {
 extern I2C i2c;
 
 void i2c_init();
-void i2c_transfer();
+void i2c_transfer(unsigned char send_value_byte_deel1, unsigned char send_value_byte_deel2);
 void wait_i2c_done();
+void lcd_init();
 
-// void i2c_set_();
-// void i2c_set_();
-// void i2c_set_();
-
-void i2c_printf(char *fmt, ...);
-void i2c_uputc(char c);
 
 #endif

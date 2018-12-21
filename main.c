@@ -13,24 +13,26 @@ interrupt-driven device driver for the Raspberry Pi 1 Model b+.
 extern void _unlock(void);
 
 void main(){
-	uart_init();				// initialize UARTs
-	uart_enable_interrupt();
+	//uart_init();				// initialize UARTs
+	//uart_enable_interrupt();
 
 	i2c_init();
+	lcd_init();
 	
 	//spi_init();
 	//spi_enable_interrupt();
 
 	/* Enable interrupts */
-	_unlock();
+	//_unlock();
 	
-	while(1){
+	//while(1){
 		//read adc
-		uart_printf("Soufiane Salama");
+		//uart_printf("Soufiane Salama");
 		//gpio_write_pin(ACT_LED, !gpio_read_pin(ACT_LED));
 		
 		//systim_waits(1);
-	}
+		
+	//}
 
 }
 // void kernel_main( unsigned int r0, unsigned int r1, unsigned int atags )
