@@ -60,11 +60,11 @@
 //#define I2C_BASE       0x205000 // BSC0
 #define I2C_BASE       0x20804000 // BSC1 = SDA1(GPIO2) en SCL1(GPIO3)
 //#define I2C_BASE       0x20805000 // BSC2 ONLY HDMI
-#define I2C_C            0x00    //0x00
-#define I2C_S            0x01   //0x04
-#define I2C_DLEN         0x02   //0x08
-#define I2C_A            0x03   //0xC
-#define I2C_FIFO         0x04   //0x10
+#define I2C_C            0    //0x00
+#define I2C_S            1   //0x04
+#define I2C_DLEN         2   //0x08
+#define I2C_A            3   //0xC
+#define I2C_FIFO         4   //0x10
 
 // #define I2C_C            (I2C_BASE + 0x00)    //0x00
 // #define I2C_S            (I2C_BASE + 0x01)   //0x04
@@ -73,9 +73,9 @@
 // #define I2C_FIFO         (I2C_BASE + 0x04)   //0x10
 
 
-//#define I2C_DIV        0x14
-//#define I2C_DEL        0x18
-//#define I2C_CLKT       0x1C
+#define I2C_DIV        5
+#define I2C_DEL        6
+//#define I2C_CLKT       7
 // C register
 #define I2C_I2CEN     (1 << 15)
 #define I2C_INTR      (1 << 10)
