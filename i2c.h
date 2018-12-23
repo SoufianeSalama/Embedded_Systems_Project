@@ -18,8 +18,7 @@ void i2c_init();
 void i2c_transfer(unsigned char send_value);
 void wait_i2c_done();
 void lcd_init();
-void lcd_byte(unsigned char bits, char mode);
-void lcd_toggle_enable(unsigned char bits);
-void lcd_string();
+void lcd_parsebyte(unsigned char bits, unsigned char mode);
+void lcd_printtext(char message[]);
 
 #endif

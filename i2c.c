@@ -28,324 +28,251 @@ void wait_i2c_done() {
       int timeout = 50;
         while((!((i2c.base[I2C_S]) & i2c.base[I2C_DONE])) && --timeout) {
         //while((!((i2c.base[I2C_S]) & i2c.base[I2C_DONE]))) {
-            //usleep(1000);
             systim_waitus(5000);
         }
-          if(timeout == 0)
-            uart_printf("Error: wait_i2c_done() timeout.\n");
+        //   if(timeout == 0)
+        //     uart_printf("Error: wait_i2c_done() timeout.\n");
             
 }
 
 void lcd_init(){
-    //Init volgens pythonscript
-    // 0x33
-    i2c_transfer(0b00111000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00111100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00111000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00111000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00111100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00111000); //4-bit, enable off, backlight on
-
-    //0x32
-    i2c_transfer(0b00111000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00111100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00111000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00101100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on
-    ////////////////////////////////////////////////////////////
-    
-    //0x06
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01101000); //4-bit, enable off, backlight on
-    i2c_transfer(0b01101100); //4-bit, enable on, backlight on
-    i2c_transfer(0b01101000); //4-bit, enable off, backlight on
-    ////////////////////////////////////////////////////////////
-
-    //0x0C
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b11111000); //4-bit, enable off, backlight on
-    i2c_transfer(0b11111100); //4-bit, enable on, backlight on
-    i2c_transfer(0b11111000); //4-bit, enable off, backlight on
-    ////////////////////////////////////////////////////////////
-
-    //0x28
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00101100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b10001000); //4-bit, enable off, backlight on
-    i2c_transfer(0b10001100); //4-bit, enable on, backlight on
-    i2c_transfer(0b10001000); //4-bit, enable off, backlight on
-
-    ////////////////////////////////////////////////////////////
-
-    //0x01 clear
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b00011000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00011100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00011000); //4-bit, enable off, backlight on
-
-     ////////////////////////////////////////////////////////////
-
-    //0x01 clear
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b00011000); //4-bit, enable off, backlight on
-    i2c_transfer(0b00011100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00011000); //4-bit, enable off, backlight on
-     ////////////////////////////////////////////////////////////
-
-    //letter F
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01101001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01101101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01101001); //4-bit, enable off, backlight on
-
-    //letter U
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01011101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01011101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-
-    //letter C
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b00111001); //4-bit, enable off, backlight on
-    i2c_transfer(0b00111101); //4-bit, enable on, backlight on
-    i2c_transfer(0b00111001); //4-bit, enable off, backlight on
-
-    //letter K
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b10111001); //4-bit, enable off, backlight on
-    i2c_transfer(0b10111101); //4-bit, enable on, backlight on
-    i2c_transfer(0b10111001); //4-bit, enable off, backlight on
-
-    //letter _
-    i2c_transfer(0b00101001); //4-bit, enable off, backlight on
-    i2c_transfer(0b00101101); //4-bit, enable on, backlight on
-    i2c_transfer(0b00101001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b00001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b00001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b00001001); //4-bit, enable off, backlight on
-
-
-    //letter E
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01011101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-
-
-    //letter M
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b11011001); //4-bit, enable off, backlight on
-    i2c_transfer(0b11011101); //4-bit, enable on, backlight on
-    i2c_transfer(0b11011001); //4-bit, enable off, backlight on
-
-
-    //letter B
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b00101001); //4-bit, enable off, backlight on
-    i2c_transfer(0b00101101); //4-bit, enable on, backlight on
-    i2c_transfer(0b00101001); //4-bit, enable off, backlight on
-
-
-
-    //letter E
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01011101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-
-    //letter D
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    //letter D
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-     //letter E
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01011101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01011001); //4-bit, enable off, backlight on
-
-    //letter D
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-    i2c_transfer(0b01001101); //4-bit, enable on, backlight on
-    i2c_transfer(0b01001001); //4-bit, enable off, backlight on
-
+    lcd_parsebyte(0x33,0x00);     //init 8-bit
+    lcd_parsebyte(0x32,0x00);     //init 8-bit
+    lcd_parsebyte(0x06,0x00);     //Entry Mode Set: move cursor to right
+    lcd_parsebyte(0x0C,0x00);     //Display On/Off: Cursor off, Blink off
+    lcd_parsebyte(0x28,0x00);     //Function Set: 4-bit, 2-line, 5*8 dots
+    lcd_parsebyte(0x01,0x00);     //Clear display
 }
 
-
-void lcd_byte(unsigned char bits, char mode){
+void lcd_parsebyte(unsigned char bits, unsigned char mode){
     // BITS => byte die in 2 gesplitst moet worden
     // MODE => 1(=DATA) of 0(=COMMAND)
-
+    unsigned char backlight = 0x08;
+    unsigned char enable = 0x04;
     unsigned char bits_hoog, bits_laag;
 
-    bits_hoog = (mode || (bits && 0xF0) || 0x08); //0x08=Backlight
-    bits_laag = (mode || ((bits << 4) && 0xF0) || 0x08);
+    bits_hoog = ((bits & 0xF0) | (backlight | mode)); 
+    bits_laag = (((bits << 4) & 0xF0) | (backlight | mode));
     
-    uart_printf("De hoge bits%b\n", bits_hoog);
-    uart_printf("De lage bits%b\n", bits_laag);
-    
-    // Verzend de hoge bits
-    //i2c_transfer(bits_hoog);
-    lcd_toggle_enable(bits_hoog);
+    // Verzend de hoge bits (1keer zonder E, dan met E en dan weer zonder E)
+    i2c_transfer(bits_hoog);
+    i2c_transfer((bits_hoog | enable));
+    i2c_transfer(bits_hoog);
 
-    // Verzend de lage bits
-    //i2c_transfer(bits_laag);
-    lcd_toggle_enable(bits_laag);
+    // Verzend de lage bits (1keer zonder E, dan met E en dan weer zonder E)
+    i2c_transfer(bits_laag);
+    i2c_transfer((bits_laag | enable));
+    i2c_transfer(bits_laag);
 }
 
-void lcd_toggle_enable(unsigned char bits){
-    //systim_waitus(1000);
-    i2c_transfer(bits || 0x04); // Enable on
-    //systim_waitus(1000);
-    i2c_transfer(bits && ~(0x04)); // Enable off
-    //systim_waitus(1000);
+void lcd_printtext(char message[]){
+    // lcd_parsebyte(0b01001000,0x01);  
+    lcd_parsebyte(' ',0x01);     // letter tussen enkele haken = unsigned
+    lcd_parsebyte(' ',0x01);     
+    lcd_parsebyte('H',0x01);     
+    lcd_parsebyte('E',0x01);    
+    lcd_parsebyte('L',0x01);    
+    lcd_parsebyte('L',0x01);     
+    lcd_parsebyte('O',0x01);    
+    lcd_parsebyte(' ',0x01);     
+    lcd_parsebyte('W',0x01);     
+    lcd_parsebyte('O',0x01);     
+    lcd_parsebyte('R',0x01);     
+    lcd_parsebyte('L',0x01);     
+    lcd_parsebyte('D',0x01);    
 }
 
-void lcd_string(){
+// void lcd_init(){
+//     //Init volgens pythonscript
+//     // 0x33
+//     i2c_transfer(0b00111000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00111100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00111000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00111000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00111100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00111000); //4-bit, enable off, backlight on
+
+//     //0x32
+//     i2c_transfer(0b00111000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00111100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00111000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00101000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00101100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00101000); //4-bit, enable off, backlight on
+//     ////////////////////////////////////////////////////////////
     
+//     //0x06
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00001100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
 
-    // 4-Bit init
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on
-    //uart_printf("4-Bit.\n");
+//     i2c_transfer(0b01101000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01101100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01101000); //4-bit, enable off, backlight on
+//     ////////////////////////////////////////////////////////////
 
-    i2c_transfer(0b00101100); //4-bit, enable on, backlight on
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on
-    systim_waitus(5000);
+//     //0x0C
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00001100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
 
-    ////////////////////////////////////////////////////////////
+//     i2c_transfer(0b11111000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b11111100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b11111000); //4-bit, enable off, backlight on
+//     ////////////////////////////////////////////////////////////
 
-    // 2lines, 5*8dots
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    //uart_printf("4-Bit, 2-lines, 5*8dots. (HIGH BITS)\n");
+//     //0x28
+//     i2c_transfer(0b00101000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00101100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00101000); //4-bit, enable off, backlight on
 
-    i2c_transfer(0b00101100); //4-bit, enable on, backlight on, hoogste bits (D7-D4)
-    i2c_transfer(0b00101000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-   
-    i2c_transfer(0b10001000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    //uart_printf("4-Bit, 2-lines, 5*8dots. (LOW BITS)\n");
+//     i2c_transfer(0b10001000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b10001100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b10001000); //4-bit, enable off, backlight on
 
-    i2c_transfer(0b10001100); //4-bit, enable on, backlight on, laagste bits (D3-D0)
-    i2c_transfer(0b10001000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    systim_waitus(5000);
+//     ////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////
+//     //0x01 clear
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00001100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
 
-    //Cursor on, Cursor Blink off
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    //uart_printf("Cursor on, Cursor Blink off. (HIGH BITS)\n");
+//     i2c_transfer(0b00011000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00011100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00011000); //4-bit, enable off, backlight on
 
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on, hoogste bits (D7-D4)
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-   
-    i2c_transfer(0b11001000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    //uart_printf("Cursor on, Cursor Blink off. (LOW BITS)\n");
+//      ////////////////////////////////////////////////////////////
 
-    i2c_transfer(0b11001100); //4-bit, enable on, backlight on, laagste bits (D3-D0)
-    i2c_transfer(0b11001000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    systim_waitus(5000);
-    ////////////////////////////////////////////////////////////
+//     //0x01 clear
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00001100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00001000); //4-bit, enable off, backlight on
 
-    //Entry Mode Set: Cursor moves to right
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    // uart_printf("Entry Mode Set: Cursor moves to right. (HIGH BITS)\n");
+//     i2c_transfer(0b00011000); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00011100); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00011000); //4-bit, enable off, backlight on
+//      ////////////////////////////////////////////////////////////
 
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on, hoogste bits (D7-D4)
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    
-    i2c_transfer(0b01101000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    // uart_printf("Entry Mode Set: Cursor moves to right. (LOW BITS)\n");
+//     //letter F
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
 
-    i2c_transfer(0b01101100); //4-bit, enable on, backlight on, laagste bits (D3-D0)
-    i2c_transfer(0b01101000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    systim_waitus(5000);
-    ////////////////////////////////////////////////////////////
+//     i2c_transfer(0b01101001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01101101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01101001); //4-bit, enable off, backlight on
+
+//     //letter U
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01011101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01011101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+
+//     //letter C
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b00111001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00111101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00111001); //4-bit, enable off, backlight on
+
+//     //letter K
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b10111001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b10111101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b10111001); //4-bit, enable off, backlight on
+
+//     //letter _
+//     i2c_transfer(0b00101001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00101101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00101001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b00001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00001001); //4-bit, enable off, backlight on
 
 
-    //Clear Display
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    i2c_transfer(0b00001100); //4-bit, enable on, backlight on, hoogste bits (D7-D4)
-    i2c_transfer(0b00001000); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
+//     //letter E
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
 
-    i2c_transfer(0b00011000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    i2c_transfer(0b00011100); //4-bit, enable on, backlight on, laagste bits (D3-D0)
-    i2c_transfer(0b00011000); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-
-    ////////////////////////////////////////////////////////////
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01011101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
 
 
-    //Write Data: letter H = 0x48
-    // i2c_transfer(0b01001001); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    // // uart_printf("Write Data: letter H = 0x48. (HIGH BITS)\n");
+//     //letter M
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
 
-    // i2c_transfer(0b01001101); //4-bit, enable on, backlight on, hoogste bits (D7-D4)
-    // i2c_transfer(0b01001001); //4-bit, enable off, backlight on, hoogste bits (D7-D4)
-    
-    // i2c_transfer(0b10001001); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    // // uart_printf("Write Data: letter H = 0x48. (LOW BITS)\n");
+//     i2c_transfer(0b11011001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b11011101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b11011001); //4-bit, enable off, backlight on
 
-    // i2c_transfer(0b10001101); //4-bit, enable on, backlight on, laagste bits (D3-D0)
-    // i2c_transfer(0b10001001); //4-bit, enable off, backlight on, laagste bits (D3-D0)
-    // //systim_waits(1);
-    ////////////////////////////////////////////////////////////
 
-}
+//     //letter B
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b00101001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b00101101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b00101001); //4-bit, enable off, backlight on
+
+
+
+//     //letter E
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01011101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+
+//     //letter D
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     //letter D
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//      //letter E
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01011101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01011001); //4-bit, enable off, backlight on
+
+//     //letter D
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+//     i2c_transfer(0b01001101); //4-bit, enable on, backlight on
+//     i2c_transfer(0b01001001); //4-bit, enable off, backlight on
+
+// }

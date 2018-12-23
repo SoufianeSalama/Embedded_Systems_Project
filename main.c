@@ -28,9 +28,11 @@ void main(){
 	systim_waits(1);
 
 	lcd_init();
-	//systim_waits(5);
+	uart_printf("LCD init.\n\r");
 
-	//lcd_string();
+	systim_waits(1);
+
+	lcd_printtext("test");
 
 	while(1){
 		//read adc
