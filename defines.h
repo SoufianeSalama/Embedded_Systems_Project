@@ -84,7 +84,7 @@
 #define I2C_ST        (1 << 7)
 #define I2C_CLEAR     (1 << 4)
 #define I2C_READ      1
-#define I2C_START_READ      I2C_I2CEN|I2C_ST|I2C_CLEAR|I2C_READ
+//#define I2C_START_READ      I2C_I2CEN|I2C_ST|I2C_CLEAR|I2C_READ
 #define I2C_START_WRITE     I2C_I2CEN|I2C_ST
 // S register
 #define I2C_CLKT      (1 << 9)

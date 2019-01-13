@@ -94,13 +94,13 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 */
 void __attribute__((interrupt("IRQ"))) interrupt_vector(void)
 {
-    /************************************************************* 
-        LAB ASSIGNEMENT: CHECK FOR UART PENDING BIT AND CALL
-                         uart_handler WHEN PENDING BIT IS SET 
-    *************************************************************/
 
     if (RPI_GetIrqController()->IRQ_pending_2 & IRQ_2_ARM_UART_IRQ) {
 		uart_handler();
+	}
+
+    if (RPI_GetIrqController()->IRQ_pending_2 & IRQ_2_ARM_SPI_IRQ) {
+		spi_handler();
 	}
 }
 
