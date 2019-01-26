@@ -42,6 +42,8 @@ void main(){
 
 	gpio_set_output(ACT_LED);
 	pcd8544_init(4, 17, 1);
+	pcd8544_setContrast(55);
+
 	mcp3202_init(0);
 	systim_waits(3);
 
@@ -51,10 +53,11 @@ void main(){
 	
 	//start first measurements
 	mcp3202_read_int(0);
-
+	int triggered = 0;
 
 	i2c_init();
 	lcd_init();
+	lcd_printtext("Start");
 
 	while(1){
 		if (spi_rdy_int()) {
@@ -75,13 +78,23 @@ void main(){
 			
 			mcp3202_read_int(0);
 
-			if (adc>=150){
+			if (adc>=800){
 				// Te hoge waarde -> ALARM
+				
+				if (triggered==0){
+				triggered = 1;	
 				lcd_printtext("ALARM");
-			}
-			else{
+				}
+				
+			}else{
+
+				if (triggered==1){
+				triggered = 0;	
 				lcd_printtext("SAFE");
+				}
 			}
+			
+
 		}
 		
 	}

@@ -20,7 +20,7 @@ void i2c_transfer(unsigned char send_value){
     i2c.base[I2C_C] |= I2C_START_WRITE;     // Start Write (see #define)
 
     wait_i2c_done();
-    systim_waitus(5000);
+    systim_waitus(100);
 }
 
 // Delay voor I2C transactie
@@ -28,7 +28,7 @@ void wait_i2c_done() {
       int timeout = 50;
         while((!((i2c.base[I2C_S]) & i2c.base[I2C_DONE])) && --timeout) {
         //while((!((i2c.base[I2C_S]) & i2c.base[I2C_DONE]))) {
-            systim_waitus(5000);
+            systim_waitus(100);
         }
         //   if(timeout == 0)
         //     uart_printf("Error: wait_i2c_done() timeout.\n");
@@ -66,8 +66,19 @@ void lcd_parsebyte(unsigned char bits, unsigned char mode){
 }
 
 void lcd_printtext(char message[]){
-    // lcd_parsebyte(0b01001000,0x01);  
-    lcd_parsebyte(' ',0x01);     // letter tussen enkele haken = unsigned
+    lcd_parsebyte(0x01,0x00);     //Clear display
+
+    int i;
+    lcd_parsebyte(' ',0x01);  
+    lcd_parsebyte(' ',0x01); 
+    lcd_parsebyte(' ',0x01); 
+    lcd_parsebyte(' ',0x01); 
+    lcd_parsebyte(' ',0x01); 
+    lcd_parsebyte(' ',0x01); 
+    for(i =0; message[i] != 0; i++){
+        lcd_parsebyte(message[i],0x01);
+    } 
+    /*lcd_parsebyte(' ',0x01);  
     lcd_parsebyte(' ',0x01);     
     lcd_parsebyte('H',0x01);     
     lcd_parsebyte('E',0x01);    
@@ -79,7 +90,7 @@ void lcd_printtext(char message[]){
     lcd_parsebyte('O',0x01);     
     lcd_parsebyte('R',0x01);     
     lcd_parsebyte('L',0x01);     
-    lcd_parsebyte('D',0x01);    
+    lcd_parsebyte('D',0x01); */   
 }
 
 // void lcd_init(){
